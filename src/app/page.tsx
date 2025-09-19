@@ -77,20 +77,23 @@ export default function OfficeWiseSite() {
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-background">
       {/* Nav */}
       <header className="sticky top-0 z-40 w-full border-b border-gray-200 bg-background/80 backdrop-blur">
-        <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="size-8 rounded-xl bg-blue-600/10 grid place-items-center"><Sparkles className="h-4 w-4"/></div>
-            <span className="font-semibold tracking-tight">OfficeWise AI</span>
+            <span className="font-semibold tracking-tight text-sm sm:text-base">OfficeWise AI</span>
           </div>
-          <nav className="hidden md:flex items-center gap-6 text-sm">
+          <nav className="hidden lg:flex items-center gap-6 text-sm">
             <a href="#services" className="hover:underline">Services</a>
             <a href="#process" className="hover:underline">Process</a>
             <a href="#results" className="hover:underline">Results</a>
             <a href="#faq" className="hover:underline">FAQ</a>
           </nav>
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" href="#contact">Contact</Button>
-            <Button href="https://calendly.com/ayesha-officewise/30min" target="_blank" rel="noopener noreferrer">Get a Free Audit</Button>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Button variant="ghost" href="#contact" size="sm" className="hidden sm:inline-flex">Contact</Button>
+            <Button href="https://calendly.com/ayesha-officewise/30min" target="_blank" rel="noopener noreferrer" size="sm" className="text-xs sm:text-sm whitespace-nowrap">
+              <span className="hidden sm:inline">Get a Free Audit</span>
+              <span className="sm:hidden">Book Call</span>
+            </Button>
           </div>
         </div>
       </header>
@@ -264,8 +267,8 @@ export default function OfficeWiseSite() {
       {/* Outcomes / Results */}
       <Section id="results" title="Outcomes we aim for" subtitle="Your mileage will vary, but these are typical wins once the flywheel starts.">
         <div className="grid md:grid-cols-3 gap-6 text-sm">
-          <Card><CardContent className="pt-6"><div className="text-4xl font-bold">20–40%</div><p className="mt-1 text-muted-foreground">Less time on repetitive ops within 90 days</p></CardContent></Card>
-          <Card><CardContent className="pt-6"><div className="text-4xl font-bold">$3–10k/mo</div><p className="mt-1 text-muted-foreground">Typical saved cost from automation + fewer errors</p></CardContent></Card>
+          <Card><CardContent className="pt-6"><div className="text-4xl font-bold">20–40% less</div><p className="mt-1 text-muted-foreground">time spent on repetitive ops within 90 days</p></CardContent></Card>
+          <Card><CardContent className="pt-6"><div className="text-4xl font-bold">Save $3–10k/mo</div><p className="mt-1 text-muted-foreground">on costs with automation + fewer errors</p></CardContent></Card>
           <Card><CardContent className="pt-6"><div className="text-4xl font-bold">~2 weeks</div><p className="mt-1 text-muted-foreground">From scoped idea to first shipped agent</p></CardContent></Card>
         </div>
       </Section>
