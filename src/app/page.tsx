@@ -7,8 +7,8 @@ import { Check, Bot, Workflow, Cpu, LineChart, Sparkles, Wrench, Shield, Mail, A
 // --- Lightweight UI primitives (no external UI library needed) ---
 const cn = (...cls: (string | false | null | undefined)[]) => cls.filter(Boolean).join(" ");
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean; variant?: "default" | "outline" | "ghost"; size?: "sm" | "md" | "lg" };
-const Button = ({ asChild, variant = "default", size = "md", className, children, ...props }: ButtonProps) => {
+type ButtonProps = (React.ButtonHTMLAttributes<HTMLButtonElement> | React.AnchorHTMLAttributes<HTMLAnchorElement>) & { variant?: "default" | "outline" | "ghost"; size?: "sm" | "md" | "lg"; href?: string };
+const Button = ({ variant = "default", size = "md", className, children, href, ...props }: ButtonProps) => {
   const base = "inline-flex items-center justify-center rounded-2xl font-medium transition-colors disabled:opacity-50 disabled:pointer-events-none";
   const sizes = { sm: "h-9 px-3 text-sm", md: "h-10 px-4 text-sm", lg: "h-11 px-5 text-base" } as const;
   const variants = {
@@ -17,10 +17,11 @@ const Button = ({ asChild, variant = "default", size = "md", className, children
     ghost: "hover:bg-accent hover:text-accent-foreground",
   } as const;
   const cls = cn(base, sizes[size], variants[variant], className);
-  if (asChild && React.isValidElement(children)) {
-    return React.cloneElement(children as React.ReactElement, { className: cn((children as any).props?.className, cls) });
+
+  if (href) {
+    return <a href={href} className={cls} {...props as React.AnchorHTMLAttributes<HTMLAnchorElement>}>{children}</a>;
   }
-  return <button className={cls} {...props}>{children}</button>;
+  return <button className={cls} {...props as React.ButtonHTMLAttributes<HTMLButtonElement>}>{children}</button>;
 };
 
 const Card = ({ className, children }: { className?: string; children: React.ReactNode }) => (
@@ -55,7 +56,7 @@ const Section = ({ id, title, subtitle, children }: { id?: string; title?: strin
   </section>
 );
 
-const Feature = ({ icon: Icon, title, desc }: { icon: any; title: string; desc: string }) => (
+const Feature = ({ icon: Icon, title, desc }: { icon: React.ComponentType<{ className?: string }>; title: string; desc: string }) => (
   <Card className="h-full shadow-sm hover:shadow-md transition-shadow">
     <CardHeader>
       <div className="flex items-center gap-3">
@@ -88,8 +89,8 @@ export default function OfficeWiseSite() {
             <a href="#faq" className="hover:underline">FAQ</a>
           </nav>
           <div className="flex items-center gap-3">
-            <Button variant="ghost" asChild><a href="#contact">Contact</a></Button>
-            <Button asChild><a href="https://calendly.com/ayesha-officewise/30min" target="_blank" rel="noopener noreferrer">Get a Free Audit</a></Button>
+            <Button variant="ghost" href="#contact">Contact</Button>
+            <Button href="https://calendly.com/ayesha-officewise/30min" target="_blank" rel="noopener noreferrer">Get a Free Audit</Button>
           </div>
         </div>
       </header>
@@ -114,11 +115,11 @@ export default function OfficeWiseSite() {
               ))}
             </ul>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <Button asChild size="lg">
-                <a href="https://calendly.com/ayesha-officewise/30min" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">Book a discovery call <ArrowRight className="h-4 w-4"/></a>
+              <Button href="https://calendly.com/ayesha-officewise/30min" target="_blank" rel="noopener noreferrer" size="lg" className="flex items-center gap-2">
+                Book a discovery call <ArrowRight className="h-4 w-4"/>
               </Button>
-              <Button asChild variant="outline" size="lg">
-                <a href="#services">See what we build</a>
+              <Button href="#services" variant="outline" size="lg">
+                See what we build
               </Button>
             </div>
             <p className="mt-3 text-xs text-muted-foreground">Based in Ontario • Serving US & Canada • Remote‑first</p>
